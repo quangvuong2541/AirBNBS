@@ -40,16 +40,14 @@ const Home = ({ data }: Props) => {
 
 export default Home
 
-
 export const getServerSideProps = async () => {
   const [data] = await Promise.all([
-    fetch(requests.fetch_hotel_img).then((res) => res)
+    fetch(requests.fetch_hotel_img).then((res) => res.json())
   ])
-  console.log(data);
 
   return {
     props: {
-      data: data 
+      data: data
     }
   }
 }
