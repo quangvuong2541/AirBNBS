@@ -1,11 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Logo from './logo'
 import { AiFillAlert, AiFillBug, AiOutlineUserSwitch } from "react-icons/ai";
 import Link from 'next/link';
 
 const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false)
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsScrolled(true)
+      } else {
+        setIsScrolled(false)
+      }
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+    }
+  }, [])
   return (
-    <header >
+    <header className={`${isScrolled && 'bg-[yellow]'}`} >
       <div className='flex items-center space-x-2 md:space-x-10'>
         <Logo />
         <ul className='hidden space-x-4 md:flex'>

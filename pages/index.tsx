@@ -1,16 +1,28 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import Banner from '../components/Banner'
 
 import Header from "../components/Header"
-const Home: NextPage = () => {
+import { Hotel } from '../typing'
+import requests from '../utils/requests'
+interface Props {
+  data: Hotel[]
+}
+
+
+
+const Home = ({ data }: Props) => {
+  console.log(data);
+
   return (
-    <div className=''>
+    <div className='relative h-screen bg-gradient-to-b from-gray-900 '>
       <Head >
         <title > Home AirBnB</title>
       </Head>
       <Header />
       <main >
         {/* Banner */}
+        <Banner />
         <section >
           {/* row */}
           {/* row */}
@@ -27,3 +39,17 @@ const Home: NextPage = () => {
 }
 
 export default Home
+
+
+export const getServerSideProps = async () => {
+  const [data] = await Promise.all([
+    fetch(requests.fetch_hotel_img).then((res) => res)
+  ])
+  console.log(data);
+
+  return {
+    props: {
+      data: data 
+    }
+  }
+}
